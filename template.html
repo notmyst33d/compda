@@ -1,0 +1,155 @@
+<!doctype html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <style>
+            @font-face {
+                font-family: 'Onest';
+                font-style: normal;
+                font-weight: 400;
+                src: url(/fonts/Onest.ttf);
+            }
+
+            @font-face {
+                font-family: 'Onest';
+                font-style: normal;
+                font-weight: 700;
+                src: url(/fonts/Onest.ttf);
+            }
+
+            body {
+                background-color: #edf0ff;
+                color: #211e2f;
+                margin: 0px;
+                font-family: 'Onest', sans-serif;
+            }
+
+            blockquote {
+                background-color: #bdd1f7;
+                padding: 16px;
+                border-radius: 16px;
+            }
+
+            .inline {
+                display: inline;
+            }
+
+            .profile-picture {
+                width: 48px;
+                border-radius: 64px;
+            }
+
+            .post {
+                padding: 16px;
+                border-radius: 16px;
+                margin: 2%;
+                background-color: #d9e3fd;
+            }
+
+            .post + .post {
+                margin-top: 16px;
+                margin-bottom: 16px;
+            }
+
+            .column {
+                display: flex;
+                flex-direction: column;
+            }
+
+            .row {
+                display: flex;
+                flex-direction: row;
+            }
+
+            .align-center {
+                align-items: center;
+            }
+
+            .author-name {
+                padding-left: 16px;
+                font-size: 24px;
+                font-weight: 700;
+            }
+
+            .post-content {
+                padding-top: 16px;
+                word-wrap: anywhere;
+            }
+
+            .bb-spoiler-collapsed {
+                background-color: #6399ff5c;
+                font-weight: 700;
+                padding: 16px;
+                border-radius: 16px;
+                cursor: pointer;
+                user-select: none;
+            }
+
+            .bb-spoiler-expanded {
+                background-color: #6399ff5c;
+                font-weight: 700;
+                padding: 16px;
+                border-top-left-radius: 16px;
+                border-top-right-radius: 16px;
+                cursor: pointer;
+                user-select: none;
+            }
+
+            .bb-spoiler-content-collapsed {
+                display: none;
+            }
+
+            .bb-spoiler-content-expanded {
+                background-color: #4484ff2e;
+                border-bottom-left-radius: 16px;
+                border-bottom-right-radius: 16px;
+                padding: 16px;
+            }
+
+            .bb-spoiler-content-collapsed + .bb-spoiler-collapsed {
+                margin-top: 16px;
+            }
+
+            .bb-spoiler-content-collapsed + .bb-spoiler-expanded {
+                margin-top: 16px;
+            }
+
+            .bb-spoiler-content-expanded + .bb-spoiler-collapsed {
+                margin-top: 16px;
+            }
+
+            .bb-spoiler-content-expanded + .bb-spoiler-expanded {
+                margin-top: 16px;
+            }
+
+            .bb-color-red {
+                color: red;
+            }
+        </style>
+        <script>
+            document.addEventListener("DOMContentLoaded", () => {
+                for (const spoiler of document.getElementsByClassName("bb-spoiler")) {
+                    spoiler.addEventListener("click", () => {
+                        if (spoiler.classList.contains("bb-spoiler-expanded")) {
+                            spoiler.classList.replace("bb-spoiler-expanded", "bb-spoiler-collapsed");
+                        } else {
+                            spoiler.classList.replace("bb-spoiler-collapsed", "bb-spoiler-expanded");
+                        }
+
+                        let spoilerContent = spoiler.nextElementSibling;
+                        if (spoilerContent.classList.contains("bb-spoiler-content-expanded")) {
+                            spoilerContent.classList.replace("bb-spoiler-content-expanded", "bb-spoiler-content-collapsed");
+                        } else {
+                            spoilerContent.classList.replace("bb-spoiler-content-collapsed", "bb-spoiler-content-expanded");
+                        }
+                    });
+                }
+            });
+        </script>
+    </head>
+    <body>
+        <div class="column">
+            [POSTS]
+        </div>
+    </body>
+</html>
