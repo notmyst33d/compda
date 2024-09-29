@@ -36,11 +36,14 @@ def render_attachment(text, attachments):
         attachment_info = tag[1:-1].split("=")[1].split(":")
         attachment_id = int(attachment_info[0][1:])
         attachment_name = attachment_info[1][:1]
-        attachment = attachments[attachment_id]
-        if attachment.type == AttachmentType.IMAGE:
-            text = text.replace(tag, f"<img src=\"{attachment.url}\">")
+        if attachment_id in attachments:
+            attachment = attachments[attachment_id]
+            if attachment.type == AttachmentType.IMAGE:
+                text = text.replace(tag, f"<img src=\"{attachment.url}\">")
+            else:
+                text = text.replace(tag, f"<span class=\"bold\">{attachment_name}</span>")
         else:
-            text = text.replace(tag, f"<span class=\"bold\">{attachment.url}</span>")
+            text = text.replace(tag, f"<span class=\"bold\">{attachment_name}</span>")
 
     return text
 
