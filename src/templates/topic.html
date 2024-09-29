@@ -17,17 +17,46 @@
                 src: url(/fonts/Onest.ttf);
             }
 
+            :root {
+                --color-primary: #415f91;
+                --color-on-primary: #ffffff;
+                --color-tertiary: #705575;
+                --color-on-tertiary: #ffffff;
+                --color-primary-container: #d6e3ff;
+                --color-on-primary-container: #001b3e;
+                --color-surface-container: #ededf4;
+                --color-surface-container-highest: #e2e2e9;
+                --color-surface: #f9f9ff;
+                --color-on-surface: #191c20;
+                --color-inverse-surface: #2e3036;
+                --color-inverse-on-surface: #f0f0f7;
+            }
+
             body {
-                background-color: #edf0ff;
-                color: #211e2f;
+                background-color: var(--color-surface);
+                color: var(--color-on-surface);
                 margin: 0px;
                 font-family: 'Onest', sans-serif;
             }
 
             blockquote {
-                background-color: #bdd1f7;
-                padding: 16px;
-                border-radius: 16px;
+                background-color: var(--color-surface-container-highest);
+                padding: 12px;
+                margin: 0px;
+                border-radius: 0px 0px 16px 16px;
+            }
+
+            pre {
+                color: var(--color-inverse-on-surface);
+                background-color: var(--color-inverse-surface);
+                white-space: pre-wrap;
+                padding: 12px;
+                margin: 0px;
+                border-radius: 0px 0px 16px 16px;
+            }
+
+            img {
+                max-height: 500px;
             }
 
             .inline {
@@ -43,7 +72,7 @@
                 padding: 16px;
                 border-radius: 16px;
                 margin: 2%;
-                background-color: #d9e3fd;
+                background-color: var(--color-surface-container);
             }
 
             .post + .post {
@@ -77,7 +106,8 @@
             }
 
             .bb-spoiler-collapsed {
-                background-color: #6399ff5c;
+                color: var(--color-on-primary);
+                background-color: var(--color-primary);
                 font-weight: 700;
                 padding: 16px;
                 border-radius: 16px;
@@ -86,7 +116,8 @@
             }
 
             .bb-spoiler-expanded {
-                background-color: #6399ff5c;
+                color: var(--color-on-primary);
+                background-color: var(--color-primary);
                 font-weight: 700;
                 padding: 16px;
                 border-top-left-radius: 16px;
@@ -100,7 +131,7 @@
             }
 
             .bb-spoiler-content-expanded {
-                background-color: #4484ff2e;
+                background-color: #babad080;
                 border-bottom-left-radius: 16px;
                 border-bottom-right-radius: 16px;
                 padding: 16px;
@@ -125,6 +156,28 @@
             .bb-color-red {
                 color: red;
             }
+
+            .block-header {
+                color: var(--color-on-tertiary);
+                background-color: var(--color-tertiary);
+                font-weight: 700;
+                margin-top: 16px;
+                padding: 6px 0px 6px 12px;
+                border-radius: 16px 16px 0px 0px;
+            }
+
+            .flex-grow {
+                flex-grow: 1;
+            }
+
+            .bold {
+                font-weight: 700;
+            }
+
+            .navigation {
+                align-self: center;
+                padding: 16px;
+            }
         </style>
         <script>
             document.addEventListener("DOMContentLoaded", () => {
@@ -144,12 +197,32 @@
                         }
                     });
                 }
+                let url = new URL(window.location.href);
+                if (url.searchParams.get("view") === "findpost") {
+                    document.getElementById("entry" + url.searchParams.get("p")).scrollIntoView();
+                }
             });
         </script>
     </head>
     <body>
         <div class="column">
-            [POSTS]
+            {% for post in posts %}
+            <div id="entry{{ post.id }}" class="post">
+                <div class="row align-center">
+                    <img class="profile-picture" src="{{ post.author_profile_picture }}"/ >
+                    <span class="author-name flex-grow">{{ post.author_name }}</span>
+                    <span class="bold">{{ post.time }}</span>
+                </div>
+                <div class="post-content">
+                    {{ post.text }}
+                </div>
+            </div>
+            {% endfor %}
+            <div class="row navigation">
+                <a href="{{ previous_page }}">Предыдущая страница</a>
+                |
+                <a href="{{ next_page }}">Следующая страница</a>
+            </div>
         </div>
     </body>
 </html>
